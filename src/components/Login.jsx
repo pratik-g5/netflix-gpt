@@ -1,9 +1,14 @@
 import React, { useRef, useState } from 'react';
 import Header from './Header';
 import validateLoginForm from '../utils/validateLoginForm';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
+import { auth } from '../utils/firebase';
 
 const Login = () => {
-  const [isSingIn, setIsSignIn] = useState(true);
+  const [isSignIn, setIsSignIn] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
 
   const name = useRef(null);
@@ -11,17 +16,51 @@ const Login = () => {
   const password = useRef(null);
 
   const toggleSignInForm = () => {
-    setIsSignIn(!isSingIn);
+    setIsSignIn(!isSignIn);
   };
 
   const handleButtonCLick = () => {
     const message = validateLoginForm(
-      isSingIn,
+      isSignIn,
       name?.current?.value,
       email?.current?.value,
       password?.current?.value
     );
     setErrorMessage(message);
+
+    if (message) return;
+
+    if (!isSignIn) {
+      createUserWithEmailAndPassword(
+        auth,
+        email?.current?.value,
+        password?.current?.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + '- ' + errorMessage);
+        });
+    } else {
+      signInWithEmailAndPassword(
+        auth,
+        email?.current?.value,
+        password?.current?.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + '- ' + errorMessage);
+        });
+    }
   };
 
   return (
@@ -36,12 +75,12 @@ const Login = () => {
       <div>
         <form
           onSubmit={(e) => e.preventDefault()}
-          className="bg-black absolute z-10  my-36 mx-auto right-0 left-0 p-10 bg-opacity-70 text-white align-middle w-3/12 rounded-lg"
+          className="bg-black absolute z-10  my-36 mx-auto right-0 left-0 p-10 bg-opacity-80 text-white align-middle w-3/12 rounded-lg"
         >
           <h1 className="py-3 text-3xl font-bold">
-            {isSingIn ? 'Sign In' : 'Sign Up'}
+            {isSignIn ? 'Sign In' : 'Sign Up'}
           </h1>
-          {!isSingIn && (
+          {!isSignIn && (
             <input
               ref={name}
               className="my-3 p-2 w-full bg-gray-600"
@@ -53,7 +92,7 @@ const Login = () => {
             ref={email}
             className="my-3 p-2 w-full bg-gray-600 "
             type="email"
-            placeholder="Email id"
+            placeholder="Email Address"
           />
           <input
             ref={password}
@@ -66,13 +105,15 @@ const Login = () => {
             className="my-3 p-2 bg-red-600 w-full rounded-lg hover:bg-red-700"
             onClick={handleButtonCLick}
           >
-            {isSingIn ? 'Sign In' : 'Sign Up'}
+            {isSignIn ? 'Sign In' : 'Sign Up'}
           </button>
           <p
             className="my-3 text-sm cursor-pointer hover:underline"
             onClick={toggleSignInForm}
           >
-            {isSingIn ? 'New to Netflix? Sign Up' : 'Already a User? Sign In '}
+            {isSignIn
+              ? 'New to Netflix? Sign Up Now'
+              : 'Already a User? Sign In Now'}
           </p>
         </form>
       </div>
