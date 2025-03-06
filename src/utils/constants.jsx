@@ -3,3 +3,14 @@ export const NETFLIX_LOGO =
 
 export const LOGIN_BODY_BACKGROUND =
   'https://assets.nflxext.com/ffe/siteui/vlv3/04ef06cc-5f81-4a8e-8db0-6430ba4af286/web/IN-en-20250224-TRIFECTA-perspective_3a9c67b5-1d1d-49be-8499-d179f6389935_large.jpg';
+
+export const OPTIONS = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization:
+      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNzQ4N2M0ODdhYmZhMzVlZjZmYjY0M2FmYTQzOTc4NyIsIm5iZiI6MTc0MTE4MzE5NS42MzIsInN1YiI6IjY3Yzg1OGRiOGZjYTBjMGIwM2U3MDE5ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.A-9cJB5WVebckrPiC3jP4atIAl0mzNu8s3Jw2xxAWHA',
+  },
+};
+
+export const API_KEY = '07487c487abfa35ef6fb643afa439787';
