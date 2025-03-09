@@ -2,16 +2,21 @@ import React, { useEffect } from 'react';
 import Header from './Header';
 import MainContainer from './MainContainer';
 import SecondaryContainer from './SecondaryContainer';
-import useGetNowPlaying from '../utils/useGetNowPlaying';
+import useGetNowPlayingMovies from '../utils/useGetNowPlayingMovies';
+import useGetPopularMovies from '../utils/useGetPopularMovies';
 
 const Browse = () => {
-  useGetNowPlaying();
+  useGetNowPlayingMovies();
+  useGetPopularMovies();
 
   return (
     <div className="relative">
       <Header />
-      <MainContainer />
-      <SecondaryContainer />
+
+      <>
+        <MainContainer />
+        <SecondaryContainer />
+      </>
     </div>
   );
 };
