@@ -4,14 +4,11 @@ import MovieCard from './MovieCard';
 const MovieList = ({ title, movies }) => {
   return (
     <div className=" px-2">
-      <h1 className=" py-4 text-white">{title}</h1>
-      <div className="flex  overflow-x-auto w-screen">
+      <h1 className=" py-4 text-white font-bold">{title}</h1>
+      <div className="flex overflow-x-scroll w-screen scrollbar-hide">
         {movies?.map((movie) => (
-          <div className="w-36 pr-6 flex-shrink-0">
-            <img
-              alt="Movie Card"
-              src={'https://image.tmdb.org/t/p/w500' + movie.poster_path}
-            />
+          <div className="w-36 pr-6 flex-shrink-0 cursor-pointer">
+            <MovieCard posterPath={movie?.poster_path} />
           </div>
         ))}
       </div>
