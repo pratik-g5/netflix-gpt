@@ -5,16 +5,18 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../utils/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { addUser, removeUser } from '../utils/userSlice';
-import { NETFLIX_LOGO } from '../utils/constants';
+import { NETFLIX_LOGO, SUPPORTED_LANGUAGES } from '../utils/constants';
+import { toggleGptSearchView } from '../redux/gptSlice';
+import { changeLanguage } from '../redux/configSlice';
 
-const Header = () => {
+const Header = ({ showGpt }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  let user = useSelector((store) => store.user);
+  const user = useSelector((store) => store.user);
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {})
-      .catch((error) => {
+      .catch(() => {
         navigate('/error');
       });
   };
@@ -40,19 +42,51 @@ const Header = () => {
     return () => unsubscribe();
   }, []);
 
+  const handleToggleGptSearch = () => {
+    dispatch(toggleGptSearchView());
+  };
+
+  const handleLanguageChange = (e) => {
+    dispatch(changeLanguage(e.target.value));
+  };
+
   return (
-    <div className="absolute p-4 z-10 bg-gradient-to-b from-black to-transparent w-full flex justify-between">
+    <div className="absolute p-4 z-10 bg-gradient-to-b from-black to-transparent justify-between w-full flex ">
       <div className="w-40 ml-4">
         <img
           src={NETFLIX_LOGO}
           alt="Netflix"
         />
       </div>
-      {user && (
-        <div className="flex p-2">
+      {user?.uid && (
+        <div className="flex p-2 justify-end items-end w-96 space-x-4">
+          {showGpt && (
+            <select
+              className="bg-gray-900 text-white p-2 rounded-lg cursor-pointer"
+              onChange={handleLanguageChange}
+            >
+              {SUPPORTED_LANGUAGES.map((lang) => {
+                return (
+                  <option
+                    className="cursor-pointer"
+                    key={lang.identifier}
+                    value={lang.identifier}
+                  >
+                    {lang.name}
+                  </option>
+                );
+              })}
+            </select>
+          )}
+          <button
+            className="flex-1 mr-5 p-2 bg-sky-700 rounded-lg hover:bg-sky-900 text-white"
+            onClick={handleToggleGptSearch}
+          >
+            {showGpt ? 'Home' : 'GPT Search'}
+          </button>
           <button
             onClick={handleSignOut}
-            className="my-2 p-2 text-sm bg-red-600 w-full rounded-lg hover:bg-red-700 text-white"
+            className="flex-none p-2 bg-red-600 rounded-lg hover:bg-red-700 text-white w-20 cursor-pointer"
           >
             Sign Out
           </button>
