@@ -1,40 +1,39 @@
-# Netflix GPT
+# NetflixGPT 🎬🔍
 
-- Build
-  - Create React App.
-  - Congifured TailwindCSS.
-  - Header.
-  - Routing.
-  - Login Form.
-  - Signup Form.
-  - Form Validation.
-  - UseRef Hook.
-  - Firebase Setup.
-  - Create SignUp User Account.
-  - Implement Sign In user API.
-  - Created REDUX-TOOLKIT Store with userSlice.
-  - Implemented Sign out.
-  - Update Profile.
-  - BugFix:
-    - Sign up user displayName & Profile picture update.
-    - If the user is !loggedIn Redirect to ('/') (VICE-VERSA)
-    - Unsubscribed to the onAuthStateChanged callback.
-  - Add hardcoded values to the constants file.
-  - Register TMDB API & create an app & get access token.
-  - Get Data from TMDB now playing movies list API.
+NetflixGPT is a responsive movie browsing and search platform built using **React**, **TailwindCSS**, **Redux**, and **Firebase**, enhanced with **TMDB** for movie data and **OpenAI's GPT API** for intelligent movie recommendations.
 
-# Features
+---
 
-- Login/Signup
-  - Sign In / Sign Up Form.
-  - Redirect To Browse Page.
-- Browse (After Authentication)
-  - Header.
-  - Main
-    - Trailer in Background.
-    - Title & Description.
-    - Movie Suggestions.
-      - MovieLists \* N.
-- NetflixGPT
-  - Search Bar.
-  - Movie Suggestions.
+## 🚀 Features
+
+- 🔐 Login / Sign Up with Firebase Authentication
+- 🎞️ Browse Page with:
+  - Hero section featuring autoplay movie trailers
+  - Multiple movie lists (Now Playing, Popular, etc.)
+- 🤖 GPT-powered Search Page
+  - Natural language movie search
+  - Smart suggestions using TMDB + GPT
+- 🌐 Multi-language Support (Bonus Feature)
+- 📱 Fully Responsive UI with TailwindCSS
+- 🔄 Persistent User State with Redux & Firebase
+- 🎬 Embedded YouTube trailers
+- 🎯 Memoized components for performance
+
+---
+
+## 🧰 Tech Stack
+
+- **Frontend:** React, Redux, TailwindCSS
+- **Auth & Backend:** Firebase
+- **APIs:** TMDB, OpenAI (GPT)
+- **State Management:** Redux Toolkit
+- **Hosting:** Firebase Hosting
+
+---
+
+## 🛠️ Setup Instructions
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/your-username/netflixgpt.git
+   cd netflixgpt
